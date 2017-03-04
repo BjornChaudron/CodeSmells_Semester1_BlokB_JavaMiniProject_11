@@ -1,16 +1,19 @@
 package model;
 
 /**
- * Created by Bjorn on 14-2-2017.
+ * Author: Bjorn, created on 14-2-2017.
  */
-public class TimeValidator {
-    private int amountOfHours, amountOfMinutes;
+public class TimeValidator implements Validate {
+    private int amountOfHours;
+    private int amountOfMinutes;
 
     public TimeValidator(int amountOfHours, int amountOfMinutes) {
         this.amountOfHours = amountOfHours;
         this.amountOfMinutes = amountOfMinutes;
     }
 
+    // Extract Interface
+    @Override
     public boolean runValidations() {
         return validateHours() && validateMinutes();
     }

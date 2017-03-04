@@ -1,10 +1,11 @@
 package model;
 
 /**
- * Created by Bjorn on 14-2-2017.
+ * Author: Bjorn, created on 14-2-2017.
  */
 public class TimeConverter {
-    private int amountOfHours, amountOfMinutes;
+    private int amountOfHours;
+    private int amountOfMinutes;
 
     public TimeConverter(int amountOfHours, int amountOfMinutes) {
         this.amountOfHours = amountOfHours;
@@ -17,15 +18,16 @@ public class TimeConverter {
         String hoursInWords = convertHoursIntToWords(amountOfHours);
         String minutesInWords = convertMinutesIntToWords(amountOfMinutes);
 
-        return formatString(hoursInWords, minutesInWords);
+        return formatString(new TimeText(hoursInWords, minutesInWords));
     }
 
-    private String formatString(String hoursInWords, String minutesInWords) {
+    // Extract Parameter Object
+    private String formatString(TimeText timeText) {
         String result = "De tijd is : ";
-        if ( amountOfMinutes <= 7 || amountOfMinutes >= 53) {
-            result += String.format("%s uur %s", hoursInWords, checkAMOrPM() );
+        if ( amountOfMinutes <= 7 || amountOfMinutes >= 53 ) {
+            result += String.format("%s uur %s", timeText.getHoursInWords(), checkAMOrPM() );
         } else {
-            result += String.format("%s %s %s", minutesInWords, hoursInWords, checkAMOrPM());
+            result += String.format("%s %s %s", timeText.getMinutesInWords(), timeText.getHoursInWords(), checkAMOrPM());
         }
         return result;
     }
@@ -36,7 +38,7 @@ public class TimeConverter {
         }
     }
 
-
+    // Extract Method (Eerste commit: MyFrame.java, regel: 160-168)
     private String checkAMOrPM() {
         String result;
 
@@ -48,36 +50,8 @@ public class TimeConverter {
     }
 
     private String convertHoursIntToWords(int amountOfHours) {
-        String result;
-        switch(amountOfHours) {
-            case 0 : result = "twaalf"; break;
-            case 1 : result = "een" ;   break;
-            case 2 : result = "twee";	break;
-            case 3 : result = "drie";	break;
-            case 4 : result = "vier";	break;
-            case 5 : result = "vijf";	break;
-            case 6 : result = "zes" ;	break;
-            case 7 : result = "zeven";	break;
-            case 8 : result = "acht";	break;
-            case 9 : result = "negen";	break;
-            case 10 : result = "tien";	break;
-            case 11 : result = "elf";	break;
-            case 12 : result = "twaalf";break;
-            case 13 : result = "een";   break;
-            case 14 : result = "twee";  break;
-            case 15 : result = "drie";  break;
-            case 16 : result = "vier";  break;
-            case 17 : result = "vijf";  break;
-            case 18 : result = "zes";   break;
-            case 19 : result = "zeven"; break;
-            case 20 : result = "acht";  break;
-            case 21 : result = "negen"; break;
-            case 22 : result = "tien";  break;
-            case 23 : result = "elf" ;  break;
-            default : result = "ongeldige invoer"; break;
-        }
-
-        return result;
+        // Extract Method Object
+        return new HourConverter(amountOfHours).invoke();
     }
 
     private String convertMinutesIntToWords(int amountOfMinutes) {
@@ -94,5 +68,59 @@ public class TimeConverter {
         }
 
         return result;
+    }
+
+    private class HourConverter {
+        private int amountOfHours;
+
+        HourConverter(int amountOfHours) {
+            this.amountOfHours = amountOfHours;
+        }
+
+        String invoke() {
+            String result;
+            switch(amountOfHours) {
+                case 1 :
+                case 13 : result = "een";
+                break;
+                case 2 :
+                case 14 : result = "twee";
+                break;
+                case 3 :
+                case 15 : result = "drie";
+                break;
+                case 4 :
+                case 16 : result = "vier";
+                break;
+                case 5 :
+                case 17 : result = "vijf";
+                break;
+                case 6 :
+                case 18 : result = "zes";
+                break;
+                case 7 :
+                case 19 : result = "zeven";
+                break;
+                case 8 :
+                case 20 : result = "acht";
+                break;
+                case 9 :
+                case 21 : result = "negen";
+                break;
+                case 10 :
+                case 22 : result = "tien";
+                break;
+                case 11 :
+                case 23 : result = "elf" ;
+                break;
+                case 0 :
+                case 12 : result = "twaalf";
+                break;
+                default : result = "ongeldige invoer";
+                break;
+            }
+
+            return result;
+        }
     }
 }
