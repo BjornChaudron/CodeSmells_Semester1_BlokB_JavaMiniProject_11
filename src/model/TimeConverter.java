@@ -1,5 +1,7 @@
 package model;
 
+import java.util.HashMap;
+
 /**
  * Author: Bjorn, created on 14-2-2017.
  */
@@ -78,49 +80,37 @@ public class TimeConverter {
         }
 
         String invoke() {
-            String result;
-            switch(amountOfHours) {
-                case 1 :
-                case 13 : result = "een";
-                break;
-                case 2 :
-                case 14 : result = "twee";
-                break;
-                case 3 :
-                case 15 : result = "drie";
-                break;
-                case 4 :
-                case 16 : result = "vier";
-                break;
-                case 5 :
-                case 17 : result = "vijf";
-                break;
-                case 6 :
-                case 18 : result = "zes";
-                break;
-                case 7 :
-                case 19 : result = "zeven";
-                break;
-                case 8 :
-                case 20 : result = "acht";
-                break;
-                case 9 :
-                case 21 : result = "negen";
-                break;
-                case 10 :
-                case 22 : result = "tien";
-                break;
-                case 11 :
-                case 23 : result = "elf" ;
-                break;
-                case 0 :
-                case 12 : result = "twaalf";
-                break;
-                default : result = "ongeldige invoer";
-                break;
-            }
+            HashMap<Integer, String> numberToStringMap = new HashMap<Integer, String>();
 
-            return result;
+            numberToStringMap.put(1, "een");
+            numberToStringMap.put(2, "twee");
+            numberToStringMap.put(3, "drie");
+            numberToStringMap.put(4, "vier");
+            numberToStringMap.put(5, "vijf");
+            numberToStringMap.put(6, "zes");
+            numberToStringMap.put(7, "zeven");
+            numberToStringMap.put(8, "acht");
+            numberToStringMap.put(9, "negen");
+            numberToStringMap.put(10, "tien");
+            numberToStringMap.put(11, "elf");
+            numberToStringMap.put(12, "twaalf");
+            numberToStringMap.put(13, "een");
+            numberToStringMap.put(14, "twee");
+            numberToStringMap.put(15, "drie");
+            numberToStringMap.put(16, "vier");
+            numberToStringMap.put(17, "vijf");
+            numberToStringMap.put(18, "zes");
+            numberToStringMap.put(19, "zeven");
+            numberToStringMap.put(20, "acht");
+            numberToStringMap.put(21, "negen");
+            numberToStringMap.put(22, "tien");
+            numberToStringMap.put(23, "elf");
+            numberToStringMap.put(24, "twaalf");
+            try {
+                return numberToStringMap.get(amountOfHours);
+            } catch(Exception e) {
+                return "ongeldige invoer";
+            }
         }
     }
 }
